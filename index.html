@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Interno | Loja de Personalizados</title>
+    <!-- Carregando Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregando Fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Carregando Lucide Icons para ícones modernos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        festive: {
+                            50: '#fef2f2',
+                            100: '#fee2e2',
+                            600: '#dc2626',
+                            700: '#b91c1c',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ajustes sutis de barra de rolagem e transições */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <!-- Cabeçalho Principal -->
+    <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-30 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <!-- Logo e Título -->
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="bg-brand-600 text-white p-2.5 rounded-xl shadow-md">
+                            <i data-lucide="printer" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Catálogo Interno</h1>
+                                <span class="bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300 text-xs font-semibold px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
+                                    Uso Exclusivo Equipe
+                                </span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Tabela de referência de preços, insumos e produção</p>
+                        </div>
+                    </div>
+
+                    <!-- Botão Tema Escuro Mobile -->
+                    <button onclick="toggleDarkMode()" aria-label="Alternar tema" class="md:hidden p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                    </button>
+                </div>
+
+                <!-- Ações Rápidas da Equipe -->
+                <div class="flex flex-wrap items-center gap-2">
+                    <!-- Botão Abrir Central de Backup -->
+                    <button onclick="toggleBackupPanel()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-emerald-300 dark:border-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition">
+                        <i data-lucide="shield-check" class="w-4 h-4"></i>
+                        <span>Backup & Exportar</span>
+                    </button>
+
+                    <!-- Botão Novo Item -->
+                    <button type="button" onclick="window.openItemModal()" class="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-semibold rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-sm transition cursor-pointer">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Novo Item</span>
+                    </button>
+
+                    <!-- Botão Tema Escuro Desktop -->
+                    <button onclick="toggleDarkMode()" aria-label="Alternar tema" class="hidden md:inline-flex p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                        <i data-lucide="moon" class="w-5 h-5 dark:hidden"></i>
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-amber-400"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ===================================================================== -->
+        <!-- SEÇÃO DEDICADA: BACKUP E SEGURANÇA DE DADOS                           -->
+        <!-- ===================================================================== -->
+        <section id="backupSection" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm mb-6 overflow-hidden">
+            <!-- Barra de Status do Backup -->
+            <div class="px-4 sm:px-5 py-3.5 bg-slate-50 dark:bg-slate-800/90 border-b border-slate-200 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 shrink-0">
+                        <i data-lucide="database-backup" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <h2 class="text-sm font-bold text-slate-900 dark:text-white">Backup e Segurança de Dados</h2>
+                            <span id="backupStatusBadge" class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
+                                Carregando status...
+                            </span>
+                        </div>
+                        <p id="lastBackupText" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                            Verificando histórico de backups locais...
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="toggleBackupPanel()" id="toggleBackupBtn" class="self-start sm:self-center inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 transition">
+                    <span id="toggleBackupLabel">Ocultar Opções</span>
+                    <i data-lucide="chevron-up" id="toggleBackupIcon" class="w-4 h-4"></i>
+                </button>
+            </div>
+
+            <!-- Alerta Discreto de Backup Atrasado (+7 dias ou nunca feito) -->
+            <div id="backupWarningAlert" class="hidden px-4 sm:px-5 py-2.5 bg-amber-50 dark:bg-amber-900/20 border-b border-amber-200 dark:border-amber-800/50 flex items-center justify-between gap-3 text-xs text-amber-800 dark:text-amber-200">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="clock-alert" class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0"></i>
+                    <span id="backupWarningMessage">Recomendação: Faça um backup hoje para proteger os preços atualizados da loja.</span>
+                </div>
+                <button onclick="exportBackupJSON()" class="font-bold underline hover:text-amber-950 dark:hover:text-white whitespace-nowrap">
+                    Fazer Backup Agora
+                </button>
+            </div>
+
+            <!-- Painel de Botões de Exportação e Restauração -->
+            <div id="backupControlsBody" class="p-4 sm:p-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                    <!-- 1. Exportar Backup (.JSON) -->
+                    <button onclick="exportBackupJSON()" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/50 hover:border-brand-400 hover:bg-brand-50/50 dark:hover:bg-slate-700/70 text-left transition group">
+                        <div class="p-2.5 rounded-xl bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 group-hover:scale-105 transition">
+                            <i data-lucide="file-json" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Exportar Backup (.JSON)</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Arquivo completo datado</div>
+                        </div>
+                    </button>
+
+                    <!-- 2. Exportar Planilha (.CSV) -->
+                    <button onclick="exportBackupCSV()" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/50 hover:border-emerald-400 hover:bg-emerald-50/50 dark:hover:bg-slate-700/70 text-left transition group">
+                        <div class="p-2.5 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-400 group-hover:scale-105 transition">
+                            <i data-lucide="file-spreadsheet" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Exportar Planilha (.CSV)</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Compatível com Excel/Sheets</div>
+                        </div>
+                    </button>
+
+                    <!-- 3. Copiar Backup (Texto/JSON) -->
+                    <button onclick="copyBackupToClipboard()" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/50 hover:border-purple-400 hover:bg-purple-50/50 dark:hover:bg-slate-700/70 text-left transition group">
+                        <div class="p-2.5 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 group-hover:scale-105 transition">
+                            <i data-lucide="copy" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Copiar Backup (WhatsApp)</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Copia código para colar direto</div>
+                        </div>
+                    </button>
+
+                    <!-- 4. Restaurar Backup -->
+                    <button onclick="openRestoreModal()" class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900/50 hover:border-amber-400 hover:bg-amber-50/50 dark:hover:bg-slate-700/70 text-left transition group">
+                        <div class="p-2.5 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 group-hover:scale-105 transition">
+                            <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Restaurar Backup</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Por arquivo .JSON ou texto</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Barra de Busca e Filtros -->
+        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm mb-6">
+            <div class="flex flex-col lg:flex-row gap-4 justify-between items-stretch lg:items-center">
+                <!-- Campo de Busca -->
+                <div class="relative flex-1">
+                    <i data-lucide="search" class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        oninput="renderCatalog()"
+                        placeholder="Buscar produto, fornecedor ou detalhe técnico (ex: Caneca, Natal, 200°C)..." 
+                        class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-brand-500 transition"
+                    >
+                </div>
+
+                <!-- Filtros por Categoria -->
+                <div class="flex items-center gap-2 overflow-x-auto pb-1 lg:pb-0" id="categoryFilters">
+                    <button onclick="setCategoryFilter('Todos')" data-cat="Todos" class="cat-btn active px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition bg-slate-900 text-white dark:bg-brand-600">
+                        Todos (<span id="count-Todos">0</span>)
+                    </button>
+                    <button onclick="setCategoryFilter('Sublimação')" data-cat="Sublimação" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600">
+                        Sublimação (<span id="count-Sublimação">0</span>)
+                    </button>
+                    <button onclick="setCategoryFilter('Natal / Sazonal')" data-cat="Natal / Sazonal" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600">
+                        🎄 Natal / Sazonal (<span id="count-Natal / Sazonal">0</span>)
+                    </button>
+                    <button onclick="setCategoryFilter('Outros')" data-cat="Outros" class="cat-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600">
+                        Outros (<span id="count-Outros">0</span>)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Aviso Informativo sobre Dados Editáveis -->
+        <div class="flex items-center justify-between bg-brand-50 dark:bg-brand-900/20 border border-brand-200 dark:border-brand-800/50 rounded-xl px-4 py-3 mb-6 text-sm text-brand-800 dark:text-brand-200">
+            <div class="flex items-center gap-2.5">
+                <i data-lucide="info" class="w-5 h-5 text-brand-600 dark:text-brand-400 shrink-0"></i>
+                <span>Os itens iniciais contêm valores e dicas de referência. Clique em <strong>Editar / Atualizar Preço</strong> em qualquer card para ajustar conforme a realidade da loja.</span>
+            </div>
+            <button onclick="openResetModal()" class="text-xs font-semibold underline hover:text-brand-600 dark:hover:text-brand-300 whitespace-nowrap ml-4">
+                Restaurar Padrões
+            </button>
+        </div>
+
+        <!-- Grid de Cards do Catálogo -->
+        <div id="catalogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Os cards serão renderizados via JavaScript aqui -->
+        </div>
+
+        <!-- Estado Vazio (Quando busca não encontra nada) -->
+        <div id="emptyState" class="hidden text-center py-16 bg-white dark:bg-slate-800 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700">
+            <div class="bg-slate-100 dark:bg-slate-700 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="package-search" class="w-8 h-8 text-slate-400"></i>
+            </div>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Nenhum produto encontrado</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Tente buscar por outro termo ou limpe os filtros selecionados.</p>
+            <button onclick="resetFilters()" class="px-4 py-2 bg-brand-600 text-white text-sm font-medium rounded-xl hover:bg-brand-700 transition">
+                Limpar Filtros
+            </button>
+        </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-4 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+            <p>Sistema Interno de Consulta de Produtos & Insumos • Dados salvos localmente neste navegador.</p>
+            <p>Dica: Use o painel <strong>Backup e Segurança</strong> no topo para compartilhar a tabela no grupo da loja.</p>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL: RESTAURAR BACKUP (ARQUIVO .JSON OU TEXTO COLADO)               -->
+    <!-- ===================================================================== -->
+    <div id="restoreModal" class="fixed inset-0 z-[9999] hidden overflow-y-auto" aria-labelledby="restore-modal-title" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeRestoreModal()"></div>
+
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative w-full max-w-lg rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xl p-6 transition-all">
+                <!-- Cabeçalho -->
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center gap-2.5">
+                        <div class="p-2 bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 rounded-xl">
+                            <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h2 id="restore-modal-title" class="text-lg font-bold text-slate-900 dark:text-white">Restaurar Backup do Catálogo</h2>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Importe um arquivo .JSON ou cole o texto recebido</p>
+                        </div>
+                    </div>
+                    <button onclick="closeRestoreModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div class="mt-5 space-y-5">
+                    <!-- Modo de Restauração -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                            1. Como deseja aplicar os itens do backup?
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="cursor-pointer relative flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-900/20">
+                                <input type="radio" name="restoreMode" value="replace" checked class="mt-1 text-brand-600 focus:ring-brand-500">
+                                <div>
+                                    <div class="text-sm font-semibold text-slate-900 dark:text-white">Substituir atual</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">Troca toda a lista pela do backup</div>
+                                </div>
+                            </label>
+
+                            <label class="cursor-pointer relative flex items-start gap-2.5 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50 has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50/50 dark:has-[:checked]:bg-brand-900/20">
+                                <input type="radio" name="restoreMode" value="merge" class="mt-1 text-brand-600 focus:ring-brand-500">
+                                <div>
+                                    <div class="text-sm font-semibold text-slate-900 dark:text-white">Mesclar (Só novos)</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">Mantém os atuais e soma os novos</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Opção A: Arquivo .JSON -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                            2. Escolha o arquivo .JSON ou cole o código
+                        </label>
+                        <label class="flex flex-col items-center justify-center w-full p-4 border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-xl cursor-pointer bg-slate-50 dark:bg-slate-900/40 hover:bg-slate-100 dark:hover:bg-slate-700/40 transition">
+                            <div class="flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-brand-400">
+                                <i data-lucide="folder-open" class="w-4 h-4"></i>
+                                <span>Selecionar arquivo backup_catalogo...json</span>
+                            </div>
+                            <span class="text-xs text-slate-400 mt-1">A restauração inicia automaticamente ao selecionar</span>
+                            <input type="file" id="restoreFileInput" accept=".json" class="hidden" onchange="handleRestoreFile(event)">
+                        </label>
+                    </div>
+
+                    <!-- Divisor -->
+                    <div class="relative flex items-center py-1">
+                        <div class="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
+                        <span class="flex-shrink mx-3 text-xs font-medium text-slate-400 uppercase">ou cole o texto do WhatsApp</span>
+                        <div class="flex-grow border-t border-slate-200 dark:border-slate-700"></div>
+                    </div>
+
+                    <!-- Opção B: Colar Texto JSON -->
+                    <div>
+                        <textarea id="restorePasteInput" rows="4" placeholder='Cole aqui o código que começa com { "loja": ... ou [ { "id": ...'
+                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs font-mono text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+                    </div>
+
+                    <!-- Botões -->
+                    <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+                        <button type="button" onclick="closeRestoreModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                            Cancelar
+                        </button>
+                        <button type="button" onclick="handleRestorePaste()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm transition">
+                            <i data-lucide="check" class="w-4 h-4"></i>
+                            <span>Restaurar Texto Colado</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL: ADICIONAR / EDITAR ITEM                                        -->
+    <!-- ===================================================================== -->
+    <div id="itemModal" class="fixed inset-0 z-[9999] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <!-- Fundo escuro -->
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeItemModal()"></div>
+
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative w-full max-w-lg rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xl p-6 transition-all">
+                <!-- Cabeçalho Modal -->
+                <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
+                    <div class="flex items-center gap-2.5">
+                        <div class="p-2 bg-brand-100 dark:bg-brand-900/50 text-brand-600 dark:text-brand-400 rounded-xl">
+                            <i data-lucide="tag" class="w-5 h-5"></i>
+                        </div>
+                        <h2 id="modalTitle" class="text-lg font-bold text-slate-900 dark:text-white">Novo Produto no Catálogo</h2>
+                    </div>
+                    <button onclick="closeItemModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg transition">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Formulário -->
+                <form id="itemForm" onsubmit="saveItem(event)" class="mt-5 space-y-4">
+                    <input type="hidden" id="itemId">
+
+                    <!-- Nome e Categoria -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="itemName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Nome do Produto *
+                            </label>
+                            <input type="text" id="itemName" required placeholder="Ex: Caneca Branca AAA 325ml"
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                        </div>
+
+                        <div>
+                            <label for="itemCategory" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Categoria *
+                            </label>
+                            <select id="itemCategory" required
+                                class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                                <option value="Sublimação">Sublimação</option>
+                                <option value="Natal / Sazonal">🎄 Natal / Sazonal</option>
+                                <option value="Outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Valores Financeiros -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="itemPrice" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Último Preço Cobrado (R$) *
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">R$</span>
+                                <input type="number" id="itemPrice" step="0.01" min="0" required placeholder="35,00"
+                                    class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="itemCost" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                                Custo Estimado Insumo (R$)
+                            </label>
+                            <div class="relative">
+                                <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 font-medium text-sm">R$</span>
+                                <input type="number" id="itemCost" step="0.01" min="0" placeholder="11,50 (Opcional)"
+                                    class="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Onde Comprar Insumos -->
+                    <div>
+                        <label for="itemSupplier" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Onde Comprar os Insumos (Fornecedor / Loja / Site) *
+                        </label>
+                        <input type="text" id="itemSupplier" required placeholder="Ex: Live Sub / Shopee (Loja X) / Distribuidora Local"
+                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+
+                    <!-- Notas Técnicas / Observações -->
+                    <div>
+                        <label for="itemNotes" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                            Dicas de Produção / Prensa / Gabarito
+                        </label>
+                        <textarea id="itemNotes" rows="3" placeholder="Ex: 200°C por 180s, pressão média. Arte 21x9,5cm. Desconto acima de 10 un."
+                            class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+                    </div>
+
+                    <!-- Botões do Formulário -->
+                    <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
+                        <button type="button" onclick="closeItemModal()" class="px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                            Cancelar
+                        </button>
+                        <button type="submit" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm transition">
+                            Salvar Produto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL: CONFIRMAÇÃO DE EXCLUSÃO OU RESET                               -->
+    <!-- ===================================================================== -->
+    <div id="confirmModal" class="fixed inset-0 z-[9999] hidden overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" onclick="closeConfirmModal()"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div class="relative w-full max-w-md rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-2xl p-6 text-center">
+                <div class="w-12 h-12 rounded-full bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                </div>
+                <h3 id="confirmTitle" class="text-lg font-bold text-slate-900 dark:text-white mb-2">Confirmar Ação</h3>
+                <p id="confirmMessage" class="text-sm text-slate-500 dark:text-slate-400 mb-6">Tem certeza que deseja continuar?</p>
+                <div class="flex items-center justify-center gap-3">
+                    <button onclick="closeConfirmModal()" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                        Cancelar
+                    </button>
+                    <button id="confirmActionBtn" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-red-600 hover:bg-red-700 transition">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TOAST DE NOTIFICAÇÃO (FEEDBACK VISUAL)                                -->
+    <!-- ===================================================================== -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="flex items-center gap-3 bg-slate-900 dark:bg-slate-700 text-white px-4 py-3 rounded-xl shadow-lg border border-slate-700 dark:border-slate-600">
+            <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+            <span id="toastMessage" class="text-sm font-medium">Ação concluída!</span>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- LÓGICA JAVASCRIPT DA APLICAÇÃO                                        -->
+    <!-- ===================================================================== -->
+    <script>
+        // Chave para armazenamento no localStorage
+        const STORAGE_KEY = 'loja_personalizados_catalogo_v1';
+        const THEME_KEY = 'loja_personalizados_tema';
+        const BACKUP_META_KEY = 'loja_personalizados_ultimo_backup';
+
+        // Dados iniciais pré-cadastrados conforme solicitado
+        const DEFAULT_ITEMS = [
+            {
+                id: 'item-1',
+                name: 'Caneca de Porcelana Branca (325ml)',
+                category: 'Sublimação',
+                price: 35.00,
+                cost: 11.50,
+                supplier: 'Live Sub / Shopee (Fornecedor Importadora AAA)',
+                notes: 'Prensa cilíndrica: 200°C por 180s (pressão média). Gabarito: 21cm x 9,5cm. Acima de 10 un: R$ 28,00.',
+                updatedAt: '12/11/2026'
+            },
+            {
+                id: 'item-2',
+                name: 'Azulejo Personalizado (15x15cm ou 20x20cm)',
+                category: 'Sublimação',
+                price: 32.00,
+                cost: 9.80,
+                supplier: 'Mercado Livre / Distribuidora de Resinados',
+                notes: 'Prensa plana: 200°C por 200s (estampar com o verso virado para cima e manta de silicone). Acompanha suporte plástico.',
+                updatedAt: '12/11/2026'
+            },
+            {
+                id: 'item-3',
+                name: 'Camiseta 100% Poliéster Branca',
+                category: 'Sublimação',
+                price: 45.00,
+                cost: 15.00,
+                supplier: 'Malharia Local / Brás Atacado',
+                notes: 'Prensa plana: 200°C por 35s (pressão média/forte). Usar folha de teflon e papel protetor dentro da camiseta.',
+                updatedAt: '12/11/2026'
+            },
+            {
+                id: 'item-4',
+                name: 'Almochaveiro Personalizado (7x7cm)',
+                category: 'Natal / Sazonal',
+                price: 12.00,
+                cost: 2.80,
+                supplier: 'Shopee (Loja Brindes Sublimação) + Fibra Siliconada Local',
+                notes: 'Prensa plana: 200°C por 35s antes de encher. Encher com fibra siliconada e fechar costura/cola quente. Argola inclusa.',
+                updatedAt: '12/11/2026'
+            },
+            {
+                id: 'item-5',
+                name: 'Pingente de Natal (MDF ou Acrílico)',
+                category: 'Natal / Sazonal',
+                price: 15.00,
+                cost: 3.50,
+                supplier: 'Cortes Laser MDF / Shopee Insumos Natalinos',
+                notes: 'Prensa plana: 200°C por 45s (retirar película protetora antes!). Acompanha fitilho dourado ou vermelho.',
+                updatedAt: '12/11/2026'
+            },
+            {
+                id: 'item-6',
+                name: 'Saquinho de Natal Personalizado (20x30cm)',
+                category: 'Natal / Sazonal',
+                price: 18.00,
+                cost: 4.90,
+                supplier: 'Atacado de Tecidos Oxford / Costureira Parceira',
+                notes: 'Prensa plana: 200°C por 35s. Colocar papel sulfite por dentro para não manchar o verso. Cordão de cetim vermelho.',
+                updatedAt: '12/11/2026'
+            }
+        ];
+
+        // Estado global da aplicação
+        let catalogItems = [];
+        let currentCategory = 'Todos';
+        let confirmCallback = null;
+
+        // Inicialização ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            loadItems();
+            renderCatalog();
+            updateBackupStatusUI();
+            if (window.lucide) lucide.createIcons();
+        });
+
+        // ---------------------------------------------------------------------
+        // GERENCIAMENTO DE TEMA (CLARO / ESCURO)
+        // ---------------------------------------------------------------------
+        function initTheme() {
+            const savedTheme = localStorage.getItem(THEME_KEY);
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        window.toggleDarkMode = function() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+            if (window.lucide) lucide.createIcons();
+        };
+
+        // ---------------------------------------------------------------------
+        // PERSISTÊNCIA E GERENCIAMENTO DOS ITENS DO CATÁLOGO
+        // ---------------------------------------------------------------------
+        function getTodayFormatted() {
+            return new Date().toLocaleDateString('pt-BR');
+        }
+
+        function loadItems() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) {
+                        catalogItems = parsed;
+                        return;
+                    }
+                }
+            } catch (e) {
+                console.error('Erro ao ler localStorage:', e);
+            }
+            catalogItems = JSON.parse(JSON.stringify(DEFAULT_ITEMS));
+            saveToStorage();
+        }
+
+        function saveToStorage() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(catalogItems));
+            } catch (e) {
+                showToast('Erro ao salvar no navegador. Verifique o espaço disponível.');
+            }
+        }
+
+        function formatCurrencyBRL(value) {
+            const num = Number(value) || 0;
+            return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        window.setCategoryFilter = function(category) {
+            currentCategory = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                const isSelected = btn.getAttribute('data-cat') === category;
+                if (isSelected) {
+                    btn.className = 'cat-btn active px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition bg-slate-900 text-white dark:bg-brand-600';
+                } else {
+                    btn.className = 'cat-btn px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600';
+                }
+            });
+            renderCatalog();
+        };
+
+        window.resetFilters = function() {
+            const searchEl = document.getElementById('searchInput');
+            if (searchEl) searchEl.value = '';
+            setCategoryFilter('Todos');
+        };
+
+        function updateCategoryCounts() {
+            const counts = {
+                'Todos': catalogItems.length,
+                'Sublimação': 0,
+                'Natal / Sazonal': 0,
+                'Outros': 0
+            };
+
+            catalogItems.forEach(item => {
+                if (counts[item.category] !== undefined) {
+                    counts[item.category]++;
+                } else {
+                    counts['Outros']++;
+                }
+            });
+
+            Object.keys(counts).forEach(cat => {
+                const el = document.getElementById(`count-${cat}`);
+                if (el) el.textContent = counts[cat];
+            });
+        }
+
+        window.renderCatalog = function() {
+            updateCategoryCounts();
+            const grid = document.getElementById('catalogGrid');
+            const emptyState = document.getElementById('emptyState');
+            const searchTerm = (document.getElementById('searchInput')?.value || '').toLowerCase().trim();
+
+            const filtered = catalogItems.filter(item => {
+                const matchesCategory = currentCategory === 'Todos' || item.category === currentCategory;
+                if (!matchesCategory) return false;
+                if (!searchTerm) return true;
+
+                const haystack = `${item.name} ${item.supplier} ${item.notes || ''} ${item.category}`.toLowerCase();
+                return haystack.includes(searchTerm);
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                if (window.lucide) lucide.createIcons();
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(item => {
+                const isNatal = item.category === 'Natal / Sazonal';
+                const badgeClass = isNatal
+                    ? 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300 border-red-200 dark:border-red-800'
+                    : item.category === 'Sublimação'
+                        ? 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300 border-sky-200 dark:border-sky-800'
+                        : 'bg-slate-100 text-slate-700 dark:bg-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600';
+
+                const hasCost = item.cost !== null && item.cost !== undefined && item.cost !== '' && !isNaN(Number(item.cost));
+                const profit = hasCost ? (Number(item.price) - Number(item.cost)) : null;
+
+                return `
+                    <article class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition flex flex-col justify-between overflow-hidden">
+                        <div class="p-5">
+                            <!-- Topo do Card: Categoria e Data -->
+                            <div class="flex items-center justify-between gap-2 mb-3">
+                                <span class="text-xs font-semibold px-2.5 py-1 rounded-full border ${badgeClass}">
+                                    ${isNatal ? '🎄 ' : ''}${escapeHTML(item.category)}
+                                </span>
+                                <span class="text-xs text-slate-400 dark:text-slate-500">
+                                    Atualizado: ${escapeHTML(item.updatedAt || getTodayFormatted())}
+                                </span>
+                            </div>
+
+                            <!-- Nome do Produto -->
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white leading-snug mb-4">
+                                ${escapeHTML(item.name)}
+                            </h3>
+
+                            <!-- Bloco de Preço Cobrado e Custo -->
+                            <div class="bg-slate-50 dark:bg-slate-900/60 rounded-xl p-3.5 border border-slate-200/80 dark:border-slate-700/80 mb-4">
+                                <div class="flex items-baseline justify-between gap-2">
+                                    <div>
+                                        <span class="block text-[11px] uppercase tracking-wider font-semibold text-slate-500 dark:text-slate-400">
+                                            Último Preço Cobrado
+                                        </span>
+                                        <span class="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+                                            ${formatCurrencyBRL(item.price)}
+                                        </span>
+                                    </div>
+                                    ${hasCost ? `
+                                        <div class="text-right">
+                                            <span class="block text-[11px] text-slate-400">Insumo: ${formatCurrencyBRL(item.cost)}</span>
+                                            <span class="inline-block text-xs font-semibold ${profit >= 0 ? 'text-brand-600 dark:text-brand-400' : 'text-red-500'}">
+                                                Margem: ${formatCurrencyBRL(profit)}
+                                            </span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+
+                            <!-- Onde Comprar Insumos -->
+                            <div class="mb-3">
+                                <div class="flex items-center justify-between gap-2 mb-1">
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                                        <i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-brand-500"></i>
+                                        Onde Comprar Insumos
+                                    </span>
+                                    <button type="button" onclick="copyTextQuick('${escapeHTML(item.supplier).replace(/'/g, "\\'")}')" title="Copiar fornecedor" class="text-xs text-brand-600 dark:text-brand-400 hover:underline inline-flex items-center gap-1">
+                                        <i data-lucide="copy" class="w-3 h-3"></i> Copiar
+                                    </button>
+                                </div>
+                                <p class="text-sm font-medium text-slate-800 dark:text-slate-200 bg-brand-50/50 dark:bg-slate-700/40 px-3 py-2 rounded-lg border border-brand-100 dark:border-slate-700">
+                                    ${escapeHTML(item.supplier)}
+                                </p>
+                            </div>
+
+                            <!-- Dicas de Produção -->
+                            ${item.notes ? `
+                                <div>
+                                    <span class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                                        <i data-lucide="flame" class="w-3.5 h-3.5 text-amber-500"></i>
+                                        Produção / Prensa / Obs
+                                    </span>
+                                    <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/40 px-3 py-2 rounded-lg border border-slate-100 dark:border-slate-700/60">
+                                        ${escapeHTML(item.notes)}
+                                    </p>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- Rodapé do Card: Ações -->
+                        <div class="px-5 py-3 bg-slate-50 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between gap-2">
+                            <button type="button" onclick="window.openItemModal('${item.id}')" class="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-600 hover:border-brand-500 hover:text-brand-600 dark:hover:text-brand-400 transition">
+                                <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                                <span>Editar / Atualizar Preço</span>
+                            </button>
+                            <button type="button" onclick="window.confirmDeleteItem('${item.id}')" aria-label="Excluir item" class="p-2 text-slate-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-xl transition">
+                                <i data-lucide="trash-2" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+
+            if (window.lucide) lucide.createIcons();
+        };
+
+        // ---------------------------------------------------------------------
+        // MODAL: ADICIONAR / EDITAR ITEM
+        // ---------------------------------------------------------------------
+        window.openItemModal = function(itemId = null) {
+            const modal = document.getElementById('itemModal');
+            const titleEl = document.getElementById('modalTitle');
+            const form = document.getElementById('itemForm');
+
+            if (!modal || !form) return;
+            form.reset();
+
+            if (itemId) {
+                const item = catalogItems.find(i => i.id === itemId);
+                if (item) {
+                    titleEl.textContent = 'Editar Produto / Atualizar Preço';
+                    document.getElementById('itemId').value = item.id;
+                    document.getElementById('itemName').value = item.name;
+                    document.getElementById('itemCategory').value = item.category;
+                    document.getElementById('itemPrice').value = item.price;
+                    document.getElementById('itemCost').value = (item.cost !== null && item.cost !== undefined) ? item.cost : '';
+                    document.getElementById('itemSupplier').value = item.supplier;
+                    document.getElementById('itemNotes').value = item.notes || '';
+                }
+            } else {
+                titleEl.textContent = 'Novo Produto no Catálogo';
+                document.getElementById('itemId').value = '';
+                document.getElementById('itemCategory').value = currentCategory !== 'Todos' ? currentCategory : 'Sublimação';
+            }
+
+            modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+            setTimeout(() => {
+                document.getElementById('itemName')?.focus();
+            }, 50);
+        };
+
+        window.closeItemModal = function() {
+            const modal = document.getElementById('itemModal');
+            if (modal) modal.classList.add('hidden');
+        };
+
+        window.saveItem = function(event) {
+            event.preventDefault();
+
+            const id = document.getElementById('itemId').value.trim();
+            const name = document.getElementById('itemName').value.trim();
+            const category = document.getElementById('itemCategory').value;
+            const priceVal = parseFloat(document.getElementById('itemPrice').value);
+            const costRaw = document.getElementById('itemCost').value;
+            const costVal = costRaw !== '' ? parseFloat(costRaw) : null;
+            const supplier = document.getElementById('itemSupplier').value.trim();
+            const notes = document.getElementById('itemNotes').value.trim();
+
+            if (!name || isNaN(priceVal) || !supplier) {
+                showToast('Preencha nome, preço cobrado e onde comprar insumos.');
+                return;
+            }
+
+            const itemData = {
+                id: id || `item-${Date.now()}`,
+                name,
+                category,
+                price: priceVal,
+                cost: !isNaN(costVal) ? costVal : null,
+                supplier,
+                notes,
+                updatedAt: getTodayFormatted()
+            };
+
+            if (id) {
+                const index = catalogItems.findIndex(i => i.id === id);
+                if (index !== -1) {
+                    catalogItems[index] = itemData;
+                    showToast('Produto atualizado com sucesso!');
+                }
+            } else {
+                catalogItems.unshift(itemData);
+                showToast('Novo produto adicionado ao catálogo!');
+            }
+
+            saveToStorage();
+            closeItemModal();
+            renderCatalog();
+        };
+
+        // ---------------------------------------------------------------------
+        // EXCLUSÃO E RESTAURAÇÃO DE PADRÕES
+        // ---------------------------------------------------------------------
+        window.confirmDeleteItem = function(itemId) {
+            const item = catalogItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            openConfirmModal(
+                'Excluir Produto',
+                `Deseja realmente remover "${item.name}" do catálogo interno?`,
+                () => {
+                    catalogItems = catalogItems.filter(i => i.id !== itemId);
+                    saveToStorage();
+                    renderCatalog();
+                    showToast('Produto excluído do catálogo.');
+                }
+            );
+        };
+
+        window.openResetModal = function() {
+            openConfirmModal(
+                'Restaurar Itens Padrão',
+                'Isso substituirá a lista atual pelos 6 produtos iniciais da loja. Deseja continuar?',
+                () => {
+                    catalogItems = JSON.parse(JSON.stringify(DEFAULT_ITEMS));
+                    saveToStorage();
+                    resetFilters();
+                    showToast('Catálogo restaurado para os itens iniciais.');
+                }
+            );
+        };
+
+        function openConfirmModal(title, message, onConfirm) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMessage').textContent = message;
+            confirmCallback = onConfirm;
+
+            const actionBtn = document.getElementById('confirmActionBtn');
+            actionBtn.onclick = () => {
+                if (typeof confirmCallback === 'function') {
+                    confirmCallback();
+                }
+                closeConfirmModal();
+            };
+
+            document.getElementById('confirmModal').classList.remove('hidden');
+            if (window.lucide) lucide.createIcons();
+        }
+
+        window.closeConfirmModal = function() {
+            document.getElementById('confirmModal').classList.add('hidden');
+            confirmCallback = null;
+        };
+
+        function copyTextQuick(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Fornecedor copiado!');
+            } catch (e) {
+                showToast('Não foi possível copiar.');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // ---------------------------------------------------------------------
+        // SISTEMA COMPLETO DE BACKUP, EXPORTAÇÃO E RESTAURAÇÃO
+        // ---------------------------------------------------------------------
+        function toggleBackupPanel() {
+            const body = document.getElementById('backupControlsBody');
+            const label = document.getElementById('toggleBackupLabel');
+            const icon = document.getElementById('toggleBackupIcon');
+
+            const isHidden = body.classList.toggle('hidden');
+            label.textContent = isHidden ? 'Mostrar Opções' : 'Ocultar Opções';
+            icon.setAttribute('data-lucide', isHidden ? 'chevron-down' : 'chevron-up');
+            lucide.createIcons();
+        }
+
+        function recordBackupTimestamp() {
+            const nowIso = new Date().toISOString();
+            localStorage.setItem(BACKUP_META_KEY, nowIso);
+            updateBackupStatusUI();
+        }
+
+        function updateBackupStatusUI() {
+            const lastIso = localStorage.getItem(BACKUP_META_KEY);
+            const statusBadge = document.getElementById('backupStatusBadge');
+            const lastText = document.getElementById('lastBackupText');
+            const warningAlert = document.getElementById('backupWarningAlert');
+            const warningMsg = document.getElementById('backupWarningMessage');
+
+            if (!lastIso) {
+                statusBadge.textContent = 'Nenhum backup registrado';
+                statusBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300';
+                lastText.textContent = 'Você ainda não exportou uma cópia de segurança neste navegador.';
+                warningMsg.textContent = 'Atenção: Ainda não foi realizado nenhum backup neste dispositivo. Salve uma cópia agora.';
+                warningAlert.classList.remove('hidden');
+                return;
+            }
+
+            const lastDate = new Date(lastIso);
+            const formattedDate = lastDate.toLocaleDateString('pt-BR');
+            const formattedTime = lastDate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+            const diffDays = Math.floor((Date.now() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+
+            lastText.innerHTML = `Último backup realizado em <strong>${formattedDate} às ${formattedTime}</strong> (${catalogItems.length} itens salvos)`;
+
+            if (diffDays >= 7) {
+                statusBadge.textContent = `Atrasado (${diffDays} dias)`;
+                statusBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/50 dark:text-amber-300';
+                warningMsg.textContent = `Faz ${diffDays} dias desde o último backup. Recomendamos exportar uma cópia atualizada.`;
+                warningAlert.classList.remove('hidden');
+            } else {
+                statusBadge.textContent = diffDays === 0 ? 'Em dia (Hoje)' : `Em dia (${diffDays}d atrás)`;
+                statusBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300';
+                warningAlert.classList.add('hidden');
+            }
+        }
+
+        function buildBackupPayload() {
+            const now = new Date();
+            return {
+                sistema: 'Catálogo Interno - Loja de Personalizados',
+                versao: '1.0',
+                exportadoEm: now.toISOString(),
+                exportadoEmLegivel: `${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}`,
+                totalItens: catalogItems.length,
+                itens: catalogItems
+            };
+        }
+
+        function getBackupFileTimestamp() {
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const hh = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}_${hh}h${min}`;
+        }
+
+        // 1. Exportar Backup (.JSON)
+        function exportBackupJSON() {
+            const payload = buildBackupPayload();
+            const dataStr = JSON.stringify(payload, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup_catalogo_${getBackupFileTimestamp()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            recordBackupTimestamp();
+            showToast('Backup .JSON baixado com sucesso!');
+        }
+
+        // 2. Exportar Planilha (.CSV) com BOM UTF-8 e separador ponto-e-vírgula
+        function exportBackupCSV() {
+            const headers = [
+                'Produto',
+                'Categoria',
+                'Ultimo Preco Cobrado (R$)',
+                'Custo Insumo (R$)',
+                'Onde Comprar Insumos',
+                'Dicas de Producao / Observacoes',
+                'Ultima Atualizacao'
+            ];
+
+            const escapeCSV = (val) => {
+                if (val === null || val === undefined) return '""';
+                const str = String(val).replace(/"/g, '""').replace(/\r?\n/g, ' ');
+                return `"${str}"`;
+            };
+
+            const formatNumBR = (num) => {
+                if (num === null || num === undefined || num === '') return '';
+                return Number(num).toFixed(2).replace('.', ',');
+            };
+
+            const rows = catalogItems.map(item => [
+                escapeCSV(item.name),
+                escapeCSV(item.category),
+                escapeCSV(formatNumBR(item.price)),
+                escapeCSV(formatNumBR(item.cost)),
+                escapeCSV(item.supplier),
+                escapeCSV(item.notes || ''),
+                escapeCSV(item.updatedAt || '')
+            ].join(';'));
+
+            // \uFEFF = BOM UTF-8 para abrir com acentos perfeitos no Excel em português
+            const csvContent = '\uFEFF' + [headers.join(';'), ...rows].join('\r\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `planilha_catalogo_${getBackupFileTimestamp()}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            recordBackupTimestamp();
+            showToast('Planilha .CSV exportada para Excel!');
+        }
+
+        // 3. Copiar Backup (Texto/JSON) para WhatsApp usando fallback compatível com iframes
+        function copyBackupToClipboard() {
+            const payload = buildBackupPayload();
+            const jsonText = JSON.stringify(payload);
+
+            const textArea = document.createElement('textarea');
+            textArea.value = jsonText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            textArea.style.top = '0';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    recordBackupTimestamp();
+                    showToast('Código do backup copiado! Cole direto no WhatsApp da loja.');
+                } else {
+                    showToast('Não foi possível copiar automaticamente. Use Exportar .JSON.');
+                }
+            } catch (err) {
+                showToast('Erro ao copiar para área de transferência.');
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        // 4. Modal e Lógica de Restauração (Substituir ou Mesclar)
+        function openRestoreModal() {
+            document.getElementById('restorePasteInput').value = '';
+            document.getElementById('restoreFileInput').value = '';
+            document.getElementById('restoreModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeRestoreModal() {
+            document.getElementById('restoreModal').classList.add('hidden');
+        }
+
+        function getSelectedRestoreMode() {
+            const selected = document.querySelector('input[name="restoreMode"]:checked');
+            return selected ? selected.value : 'replace';
+        }
+
+        function handleRestoreFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                processRestoreRawText(e.target.result);
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        function handleRestorePaste() {
+            const rawText = document.getElementById('restorePasteInput').value.trim();
+            if (!rawText) {
+                showToast('Cole o código do backup antes de clicar em restaurar.');
+                return;
+            }
+            processRestoreRawText(rawText);
+        }
+
+        function processRestoreRawText(rawText) {
+            try {
+                const parsed = JSON.parse(rawText);
+                // Aceita tanto o formato novo com metadados ({ itens: [...] }) quanto array direto ([...])
+                const incomingItems = Array.isArray(parsed) ? parsed : parsed.itens;
+
+                if (!Array.isArray(incomingItems) || incomingItems.length === 0) {
+                    showToast('Backup inválido ou sem produtos cadastrados.');
+                    return;
+                }
+
+                // Valida e sanitiza os itens recebidos
+                const validItems = incomingItems
+                    .filter(item => item && typeof item.name === 'string' && item.price !== undefined)
+                    .map((item, idx) => ({
+                        id: item.id || `restored-${Date.now()}-${idx}`,
+                        name: String(item.name).trim(),
+                        category: item.category || 'Outros',
+                        price: Number(item.price) || 0,
+                        cost: (item.cost !== null && item.cost !== undefined && item.cost !== '') ? Number(item.cost) : null,
+                        supplier: item.supplier ? String(item.supplier).trim() : 'Não informado',
+                        notes: item.notes ? String(item.notes).trim() : '',
+                        updatedAt: item.updatedAt || getTodayFormatted()
+                    }));
+
+                if (validItems.length === 0) {
+                    showToast('Nenhum item válido encontrado neste backup.');
+                    return;
+                }
+
+                const mode = getSelectedRestoreMode();
+
+                if (mode === 'merge') {
+                    // Mesclar: adiciona apenas itens cujo ID ou Nome exato ainda não existam
+                    const existingIds = new Set(catalogItems.map(i => i.id));
+                    const existingNames = new Set(catalogItems.map(i => i.name.toLowerCase()));
+
+                    const onlyNew = validItems.filter(item =>
+                        !existingIds.has(item.id) && !existingNames.has(item.name.toLowerCase())
+                    );
+
+                    if (onlyNew.length === 0) {
+                        closeRestoreModal();
+                        showToast('Todos os itens deste backup já existem no catálogo atual.');
+                        return;
+                    }
+
+                    catalogItems = [...onlyNew, ...catalogItems];
+                    saveToStorage();
+                    resetFilters();
+                    closeRestoreModal();
+                    showToast(`Mesclagem concluída! ${onlyNew.length} novo(s) item(ns) adicionado(s).`);
+                } else {
+                    // Substituir catálogo atual
+                    catalogItems = validItems;
+                    saveToStorage();
+                    resetFilters();
+                    closeRestoreModal();
+                    showToast(`Catálogo restaurado com ${validItems.length} item(ns)!`);
+                }
+            } catch (err) {
+                showToast('Erro ao ler backup. Verifique se o texto ou arquivo .JSON está completo.');
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        // UTILITÁRIOS (TOAST E SEGURANÇA XSS)
+        // ---------------------------------------------------------------------
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+    </script>
+</body>
+</html>
